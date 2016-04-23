@@ -1,6 +1,6 @@
 package models
 
-trait Task extends Element {
+trait Task extends Command {
   def name: String
   def run(input: String): String
 }

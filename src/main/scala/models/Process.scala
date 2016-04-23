@@ -1,3 +1,3 @@
 package models
 
-case class Process(inputStream: Stream[String]) extends Element
+case class Process(inputStream: Stream[String]) extends Command

@@ -1,3 +1,3 @@
 package models
 
-trait Element
+trait Command

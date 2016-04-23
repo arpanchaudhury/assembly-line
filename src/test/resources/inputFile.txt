@@ -1,0 +1,4 @@
+task echo echo
+task reverse reverse
+link echo reverse
+process input1 input2

@@ -2,8 +2,8 @@ package io
 
 import java.io.File
 
-import utils.NetworkElementsParser
+import utils.CommandParser
 
-class AssemblyLineIO(inputFile: File, networkElementsParser: NetworkElementsParser) {
-  def getElementsIterator = scala.io.Source.fromFile(inputFile).getLines().map(networkElementsParser.parse)
+class AssemblyLineIO(inputFile: File, commandParser: CommandParser) {
+  def getCommandsIterator = scala.io.Source.fromFile(inputFile).getLines().map(commandParser.parse)
 }

@@ -1,6 +1,6 @@
 package constants
 
-object ElementPatterns {
+object CommandPatterns {
   val Echo    = "(?i)echo".r
   val NoOp    = "(?i)noop".r
   val Delay   = "(?i)delay".r
