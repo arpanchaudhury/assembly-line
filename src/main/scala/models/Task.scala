@@ -1,6 +1,6 @@
 package models
 
-trait Task extends Command {
+trait Task extends Command with Element {
   def name: String
   def run(input: String): String
 }
@@ -27,4 +27,9 @@ case class NoOp(name: String) extends Task {
   def run(input: String) = input
 
   override def toString = s"NoOp($name)"
+}
+
+case class CompoundTasks(tasks: Task*) extends Task {
+  def name = s"compound - ${tasks.map(_.name).mkString(", ")}"
+  def run(input: String) = tasks.foldLeft("")((inputString, task) => inputString + task.run(input))
 }

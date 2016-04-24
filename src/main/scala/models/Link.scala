@@ -1,3 +1,3 @@
 package models
 
-case class Link(upstreamTaskName: String, downstreamTaskName: String) extends Command
+case class Link(upstreamTaskName: String, downstreamTaskName: String) extends Command with Element

@@ -30,4 +30,12 @@ class TaskSpec extends Specification {
       }
     }
   }
+
+  "Compound Task" >> {
+
+    "should perform multiple tasks in sequence" >> {
+      val tasks = Seq(Echo("echo"), Reverse("reverse"), Delay("delay"))
+      CompoundTasks(tasks: _*).run("test") mustEqual "testtesttsettbb test"
+    }
+  }
 }
