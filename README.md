@@ -6,7 +6,7 @@ Assumptions
 -----------
 
 1. Network has single inlet and outlet for the input stream.
-2. Each input constituting the input stream is treated as atomic entities which are processed independently.
+2. Each input constituting the input stream is treated as atomic entities which are processed independently by task in the network.
 
 
 Running AssemblyLine
@@ -15,7 +15,7 @@ Running AssemblyLine
 * Unzip ```assembly-line.zip``` in local directory.
 * Open terminal and go to assembly-line folder.
 * Check permissions of sbt file inside assembly-line folder. It should be executable.
-* Run application ```./sbt run```
+* Run application ```./sbt run <input file path>```
 * Run all tests ```./sbt test```
 
 
