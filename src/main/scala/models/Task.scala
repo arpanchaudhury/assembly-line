@@ -6,7 +6,7 @@ trait Task extends Command with Element {
 }
 
 case class Echo(name: String) extends Task {
-  def run(input: String) = input + input
+  def run(input: String) = s"$input $input"
 
   override def toString = s"Echo($name)"
 }
@@ -30,6 +30,6 @@ case class NoOp(name: String) extends Task {
 }
 
 case class CompoundTasks(tasks: Task*) extends Task {
-  def name = s"compound - ${tasks.map(_.name).mkString(", ")}"
-  def run(input: String) = tasks.foldLeft("")((inputString, task) => inputString + task.run(input))
+  def name = s"Compound Task - ${tasks.map(_.name).mkString(", ")}"
+  def run(input: String) = tasks.map(_.run(input)).mkString(" ")
 }

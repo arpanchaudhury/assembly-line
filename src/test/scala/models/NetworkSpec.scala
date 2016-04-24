@@ -10,14 +10,13 @@ class NetworkSpec extends Specification {
     val noop = NoOp("noop")
     val delay = Delay("delay")
     val reverse = Reverse("reverse")
-    val link = Link("echo", "reverse")
 
     "should throw InvalidLinkException when link is malformed" >> {
       val network = new Network()
 
       network.add(echo)
 
-      network.add(link) must throwA[InvalidLinkException]
+      network.add(Link(echo.name, reverse.name)) must throwA[InvalidLinkException]
     }
 
     "should process input stream" >> {
@@ -26,9 +25,11 @@ class NetworkSpec extends Specification {
 
       network.add(echo)
       network.add(reverse)
-      network.add(link)
+      network.add(delay)
+      network.add(Link(echo.name, reverse.name))
+      network.add(Link(reverse.name, delay.name))
 
-      network.process(inputStream).toList mustEqual List("1tupni1tupni", "2tupni2tupni")
+      network.process(inputStream).toList mustEqual List("tbb 1tupni 1tupni", "tbb 2tupni 2tupni")
     }
 
     "should process input stream in complex network" >> {
@@ -45,7 +46,7 @@ class NetworkSpec extends Specification {
       network.add(Link(reverse.name, delay.name))
       network.add(Link(noop.name, delay.name))
 
-      network.process(inputStream).toList mustEqual List("tbb input1input11tupni1tupni", "tbb input2input22tupni2tupni")
+      network.process(inputStream).toList mustEqual List("tbb input1 input1 1tupni 1tupni", "tbb input2 input2 2tupni 2tupni")
     }
 
     "should process input stream in more complex network" >> {
@@ -73,7 +74,7 @@ class NetworkSpec extends Specification {
       network.add(Link(reverse1.name, echo2.name))
       network.add(Link(echo2.name, delay2.name))
 
-      network.process(inputStream).toList mustEqual List("tbb tbb inputinputtbb tupnitupnitupnitupni")
+      network.process(inputStream).toList mustEqual List("tbb tbb input input tupni tupni tupni tupni")
     }.pendingUntilFixed
   }
 }

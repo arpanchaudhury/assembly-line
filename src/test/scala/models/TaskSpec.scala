@@ -8,7 +8,7 @@ class TaskSpec extends Specification {
 
     "Echo" >> {
       "should concatenate the input string" >> {
-        Echo("echoTask").run("blah") mustEqual "blahblah"
+        Echo("echoTask").run("blah") mustEqual "blah blah"
       }
     }
 
@@ -35,7 +35,7 @@ class TaskSpec extends Specification {
 
     "should perform multiple tasks in sequence" >> {
       val tasks = Seq(Echo("echo"), Reverse("reverse"), Delay("delay"))
-      CompoundTasks(tasks: _*).run("test") mustEqual "testtesttsettbb test"
+      CompoundTasks(tasks: _*).run("test") mustEqual "test test tset tbb test"
     }
   }
 }
