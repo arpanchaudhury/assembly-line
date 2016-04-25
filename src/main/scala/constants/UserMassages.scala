@@ -15,13 +15,6 @@ object UserMassages {
        |have a nice day ...
        """.stripMargin
 
-  val ArgumentMissingMessage =
-    s"""
-       |You haven't provided input file path as an argument
-       |
-       |Usage: run <absolute-file-path>
-       """.stripMargin
-
   def InputMessage(input: String) =
     s"""
        |Input data
