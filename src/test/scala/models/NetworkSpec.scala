@@ -43,10 +43,10 @@ class NetworkSpec extends Specification {
 
       network.add(Link(echo.name, noop.name))
       network.add(Link(echo.name, reverse.name))
-      network.add(Link(reverse.name, delay.name))
       network.add(Link(noop.name, delay.name))
+      network.add(Link(reverse.name, delay.name))
 
-      network.process(inputStream).toList mustEqual List("tbb input1 input1 1tupni 1tupni", "tbb input2 input2 2tupni 2tupni")
+      network.process(inputStream).toList mustEqual List("tbb 1tupni 1tupni input1 input1", "tbb input2 input2 2tupni 2tupni")
     }
 
     "should process input stream in more complex network" >> {
@@ -75,6 +75,6 @@ class NetworkSpec extends Specification {
       network.add(Link(echo2.name, delay2.name))
 
       network.process(inputStream).toList mustEqual List("tbb tbb input input tupni tupni tupni tupni")
-    }.pendingUntilFixed
+    }
   }
 }

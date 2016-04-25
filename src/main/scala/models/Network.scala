@@ -25,21 +25,11 @@ class Network {
       throw InvalidLinkException("[Error]: tasks to be linked not found")
   }
 
-  def process(inputStream: Stream[String]) = {
-    inputStream.map(tasks.iterator.foldLeft(_)((inputString, task) => task.run(inputString)))
-  }
+  def process(inputStream: Stream[String]) = inputStream.map(getNodeOutput(_, lastNode))
 
-  private def tasks = {
-    var lastNodeCopy = lastNode
-    var taskList = List(lastNodeCopy.task)
-
-    while (lastNodeCopy.parents.nonEmpty) {
-      val parents = lastNodeCopy.parents
-      lastNodeCopy = parents.head
-      taskList = CompoundTasks(parents.map(_.task).toSeq: _*) :: taskList
-    }
-
-    taskList
+  private def getNodeOutput(input: String, node: Node): String = node.parents match {
+    case parents if parents.isEmpty => node.task.run(input)
+    case parents                    => node.task.run(parents.map(getNodeOutput(input, _)).mkString(" "))
   }
 
   private def taskNodesExists(taskNames: String*) = taskNames.forall(name => nodes.exists(_.task.name == name))

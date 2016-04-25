@@ -28,8 +28,3 @@ case class NoOp(name: String) extends Task {
 
   override def toString = s"NoOp($name)"
 }
-
-case class CompoundTasks(tasks: Task*) extends Task {
-  def name = s"Compound Task - ${tasks.map(_.name).mkString(", ")}"
-  def run(input: String) = tasks.map(_.run(input)).mkString(" ")
-}
