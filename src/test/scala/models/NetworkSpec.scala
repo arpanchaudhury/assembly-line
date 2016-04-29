@@ -19,7 +19,16 @@ class NetworkSpec extends Specification {
       network.add(Link(echo.name, reverse.name)) must throwA[InvalidLinkException]
     }
 
-    "should process input stream" >> {
+    "should process input stream in simplest network" >> {
+      val network = new Network()
+      val inputStream = Stream("input")
+
+      network.add(echo)
+
+      network.process(inputStream).toList mustEqual List("input input")
+    }
+
+    "should process input stream in simple network" >> {
       val network = new Network()
       val inputStream = Stream("input1", "input2")
 
@@ -53,19 +62,23 @@ class NetworkSpec extends Specification {
       val network = new Network()
       val inputStream = Stream("input")
 
-      val echo1 = Echo("echo1")
-      val noop1 = NoOp("noop1")
-      val delay1 = Delay("delay1")
+      val echo1    = Echo("echo1")
+      val echo2    = Echo("echo2")
+      val noop1    = NoOp("noop1")
+      val noop2    = NoOp("noop2")
+      val delay1   = Delay("delay1")
+      val delay2   = Delay("delay2")
       val reverse1 = Reverse("reverse1")
-      val echo2 = Echo("echo2")
-      val delay2 = Delay("delay2")
+      val reverse2 = Reverse("reverse2")
 
       network.add(noop1)
-      network.add(reverse1)
+      network.add(noop2)
       network.add(echo1)
       network.add(echo2)
       network.add(delay1)
       network.add(delay2)
+      network.add(reverse1)
+      network.add(reverse2)
 
       network.add(Link(echo1.name, noop1.name))
       network.add(Link(noop1.name, delay1.name))

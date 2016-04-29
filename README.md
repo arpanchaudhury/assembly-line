@@ -6,7 +6,8 @@ Assumptions
 -----------
 
 1. Network has single inlet and outlet for the input stream.
-2. Each input constituting the input stream is treated as atomic entities which are processed independently by task in the network.
+2. If only one Task is added to the networks it works as inlet as well as outlet.
+3. Each input constituting the input stream is treated as atomic entities which are processed independently by task in the network.
 
 
 Running AssemblyLine

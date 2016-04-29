@@ -18,8 +18,8 @@ class CommandParserSpec extends Specification {
       commandParser.parse("task flipper reverse") mustEqual Reverse("flipper")
     }
 
-    "should parse echo task" >> {
-      commandParser.parse("task lagger delay") mustEqual Delay("lagger")
+    "should parse delay task" >> {
+      commandParser.parse("task slacker delay") mustEqual Delay("slacker")
     }
 
     "should parse noop task" >> {

@@ -8,7 +8,7 @@ class AssemblyLineService(assemblyLineIO: AssemblyLineIO) {
   val network = new Network
 
   def serve() = {
-    println(UserMassages.WelcomeMessage(assemblyLineIO.inputFile))
+    assemblyLineIO.printLine(UserMassages.WelcomeMessage(assemblyLineIO.inputFile))
     val commandsIterator = assemblyLineIO.getCommandsIterator
     while(commandsIterator.hasNext) {
       commandsIterator.next match {
@@ -17,6 +17,6 @@ class AssemblyLineService(assemblyLineIO: AssemblyLineIO) {
                                  assemblyLineIO.printLine(UserMassages.OutputMessage(network.process(process.inputStream).mkString(" | ")))
       }
     }
-    println(UserMassages.ExitMessage)
+    assemblyLineIO.printLine(UserMassages.ExitMessage)
   }
 }
