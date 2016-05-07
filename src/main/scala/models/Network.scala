@@ -22,18 +22,18 @@ class Network {
 
   def process(inputStream: Stream[String]) = inputStream.map(getNodeOutput(_, lastNode))
 
+  private def getNodeOutput(input: String, node: Node): String = node.parents match {
+    case parents if parents.isEmpty => node.task.run(input)
+    case parents                    => node.task.run(parents.map(getNodeOutput(input, _)).mkString(" "))
+  }
+
   private def lastNode = nodes.size match {
     case 0 => throw MalformedNetworkException("[Error]: No task added to the network")
     case 1 => nodes.head
     case _ => val upstreamNodes = nodes.flatMap(_.parents)
-      val lastNode = nodes.diff(upstreamNodes).filter(_.parents.nonEmpty)
-      if (lastNode.size == 1) lastNode.head
-      else throw MalformedNetworkException("[Error]: Network is not correctly formed")
-  }
-
-  private def getNodeOutput(input: String, node: Node): String = node.parents match {
-    case parents if parents.isEmpty => node.task.run(input)
-    case parents                    => node.task.run(parents.map(getNodeOutput(input, _)).mkString(" "))
+              val lastNode = nodes.diff(upstreamNodes).filter(_.parents.nonEmpty)
+              if (lastNode.size == 1) lastNode.head
+              else throw MalformedNetworkException("[Error]: Network is not correctly formed")
   }
 
   private def taskNodesExists(taskNames: String*) = taskNames.forall(name => nodes.exists(_.task.name == name))
